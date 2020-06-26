@@ -1,0 +1,43 @@
+#1.
+    Browse to https://www.toptal.com/developers/gitignore,
+    set keywords: visualstudiocode, angular and dotnetcore
+    Create a .gitignore file and write down the previous output
+    There are a few entries not required, but wont heart either.
+
+#3. Create a new solution folder and its project folders
+    cd ~/
+    mkdir -p ~/Projects/unosquare/
+    pushd ~/Projects/unosquare/
+    mkdir App.Model
+    mkdir App.Model.Test
+    mkdir App.Persistence
+    mkdir App.Persistence.Test
+    mkdir App.Api
+    mkdir App.Api.Test
+    mkdir App.Web
+
+#2. Init git and initial commit
+    git init
+    git add .
+    git commit
+
+
+#4. Create a Models project
+    pushd App.Model
+    dotnet
+
+
+
+
+
+#X. Create Repository
+        check this guide on how to implement Repository in the right way:
+        https://www.youtube.com/watch?v=rtXpYpZdOzM&list=PLxwQcdIv5Et9scn7Fi6JIbagdrrBz_3T1&index=22&t=575s
+
+
+
+
+
+
+    Go to https://www.toptal.com/developers/gitignore/api/visualstudiocode,angular,dotnetcore
+    
