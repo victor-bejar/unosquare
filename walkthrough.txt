@@ -77,20 +77,40 @@
     git commit
     git checkout master
     git rebase create_solution
+    
+#13.a. Remove unused branches
+    git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
 
-#14. 
+#14. Create a git branch for model project
+    git branch model_project
+    git checkout model_project
+
+#14. Work on model (and test) project
+    dotnet clean && dotnet restore && dotnet build && dotnet test
+
+#15. Sumit model (and test) project
     git add .
     git commit
+    git checkout master
+    git rebase model_project
 
+#15.a. Remove unused branches
+    git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
 
-#XX. Create Repository
-        check this guide on how to implement Repository in the right way:
+#16. Create a git branch for persistence project
+    git branch persistence_project
+    git checkout persistence_project
+
+#17. Work on persistence (and test) project
+    check this guide on how to implement Repository in the right way:
         https://www.youtube.com/watch?v=rtXpYpZdOzM&list=PLxwQcdIv5Et9scn7Fi6JIbagdrrBz_3T1&index=22&t=575s
+    dotnet clean && dotnet restore && dotnet build && dotnet test
 
+#18. Sumit persistence (and test) project
+    git add .
+    git commit
+    git checkout master
+    git rebase persistence_project
 
-
-
-
-
-    Go to https://www.toptal.com/developers/gitignore/api/visualstudiocode,angular,dotnetcore
-    
+#15.a. Remove unused branches
+    git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
