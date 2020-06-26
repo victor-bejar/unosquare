@@ -1,10 +1,10 @@
-#1.
+#01.
     Browse to https://www.toptal.com/developers/gitignore,
     set keywords: visualstudiocode, angular and dotnetcore
     Create a .gitignore file and write down the previous output
     There are a few entries not required, but wont heart either.
 
-#3. Create a new solution folder and its project folders
+#02. Create a new solution folder and its project folders
     cd ~/
     mkdir -p ~/Projects/unosquare/
     pushd ~/Projects/unosquare/
@@ -16,21 +16,72 @@
     mkdir App.Api.Test
     mkdir App.Web
 
-#2. Init git and initial commit
+#03. Init git and initial commit
     git init
     git add .
     git commit
 
+#04. Create a git branch to isolate the solution structure
+    git branch create_solution
+    git checkout create_solution
 
-#4. Create a Models project
+#05. Create a model project
     pushd App.Model
-    dotnet
+    dotnet new classlib
+    popd
+
+#06. Create a model test project
+    pushd App.Model.Test
+    dotnet new xunit
+    dotnet add reference ../App.Model
+    popd
+
+#07. Create a persistence project
+    pushd App.Persistence
+    dotnet new classlib
+    popd
+
+#08. Create a persistence test project
+    pushd App.Persistence.Test
+    dotnet new xunit
+    dotnet add reference ../App.Persistence
+    popd
+
+#09. Create a web api project
+    pushd App.Api
+    dotnet new webapi
+    popd
+
+#10. Create a persistence test project
+    pushd App.Api.Test
+    dotnet new xunit
+    dotnet add reference ../App.Api
+    popd
+
+#11. Create a solution file
+    dotnet new solution
+    dotnet sln add App.Model
+    dotnet sln add App.Model.Test
+    dotnet sln add App.Persistence
+    dotnet sln add App.Persistence.Test
+    dotnet sln add App.Api
+    dotnet sln add App.Api.Test
+
+#12. Create an angular project
+    pushd App.Web
+    ng new unosquare
+    popd
+
+#13. Project structure commit
+    git add .
+    git commit
+
+#14. Project structure commit
+    git add .
+    git commit
 
 
-
-
-
-#X. Create Repository
+#XX. Create Repository
         check this guide on how to implement Repository in the right way:
         https://www.youtube.com/watch?v=rtXpYpZdOzM&list=PLxwQcdIv5Et9scn7Fi6JIbagdrrBz_3T1&index=22&t=575s
 
