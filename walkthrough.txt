@@ -75,8 +75,10 @@
 #13. Project structure commit
     git add .
     git commit
+    git checkout master
+    git rebase create_solution
 
-#14. Project structure commit
+#14. 
     git add .
     git commit
 
