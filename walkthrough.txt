@@ -39,12 +39,17 @@
 #07. Create a persistence project
     pushd App.Persistence
     dotnet new classlib
+    dotnet add reference ../App.Model
+    dotnet add package Microsoft.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.InMemory
     popd
 
 #08. Create a persistence test project
     pushd App.Persistence.Test
     dotnet new xunit
     dotnet add reference ../App.Persistence
+    dotnet add package Microsoft.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.InMemory
     popd
 
 #09. Create a web api project
@@ -85,32 +90,32 @@
     git branch model_project
     git checkout model_project
 
-#14. Work on model (and test) project
+#15. Work on model (and test) project
     dotnet clean && dotnet restore && dotnet build && dotnet test
 
-#15. Sumit model (and test) project
+#16. Commit model (and test) project
     git add .
     git commit
     git checkout master
     git rebase model_project
 
-#15.a. Remove unused branches
+#16.a. Remove unused branches
     git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
 
-#16. Create a git branch for persistence project
+#17. Create a git branch for persistence project
     git branch persistence_project
     git checkout persistence_project
 
-#17. Work on persistence (and test) project
-    check this guide on how to implement Repository in the right way:
+#18. Work on persistence (and test) project
+    check this guide on how to implement Repository "the right way" (still dont like it):
         https://www.youtube.com/watch?v=rtXpYpZdOzM&list=PLxwQcdIv5Et9scn7Fi6JIbagdrrBz_3T1&index=22&t=575s
     dotnet clean && dotnet restore && dotnet build && dotnet test
 
-#18. Sumit persistence (and test) project
+#19. Commit persistence (and test) project
     git add .
     git commit
     git checkout master
     git rebase persistence_project
 
-#15.a. Remove unused branches
+#19.a. Remove unused branches
     git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
