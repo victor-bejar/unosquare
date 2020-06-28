@@ -1,7 +1,5 @@
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +10,7 @@ using App.Api.Contract.V1.Response;
 using App.Api.Contract.V1;
 using App.Api.Contract.V1.Interface;
 using App.Persistence.Model;
+using App.Model.Interface;
 
 namespace App.Api.Controllers.V1
 {
@@ -72,29 +71,24 @@ namespace App.Api.Controllers.V1
         public IActionResult GetList([FromQuery] string filter, [FromQuery] int? pageIndex, [FromQuery] int? pageSize)
         {
 
-            IEnumerable<Product> productModels = null;
-            IList<ProductResponse> productesListResponse = null;
+            IItemsList<Product> productsList = null;
+            ProductsResponse productsListResponse = null;
 
-            productModels = this._productService.GetList(filter, pageIndex, pageSize);
+            productsList = this._productService.GetList(filter, pageIndex, pageSize);
 
-            if (productModels.Count() <= 0)
+            if (productsList.RenderedItemsCount <= 0)
             {
                 return NotFound($"Items not found for requested page");
             }
 
-            productesListResponse = new Collection<ProductResponse>();
+            productsListResponse = ProductMapper.ProductsListToResponse(productsList);
 
-            foreach (Product productModel in productModels)
-            {
-                productesListResponse.Add(ProductMapper.ModelToResponse(productModel));
-            }
-
-            return Ok(productesListResponse);
+            return Ok(productsListResponse);
 
         }
 
         [HttpPut(ApiRoutes.Product.Update)]
-        public IActionResult UpdateAsync([FromBody] ProductUpdateRequest product, [FromRoute] int id)
+        public IActionResult Update([FromBody] ProductUpdateRequest product, [FromRoute] int id)
         {
 
             Product productModel = null;
@@ -108,7 +102,7 @@ namespace App.Api.Controllers.V1
         }
 
         [HttpDelete(ApiRoutes.Product.Delete)]
-        public IActionResult RemoveAsync([FromRoute] int id)
+        public IActionResult Remove([FromRoute] int id)
         {
 
             Product productModel = null;

@@ -80,6 +80,7 @@
 #12. Create an angular project
     pushd App.Web
     ng new unosquare
+    ng add @angular/material
     popd
 
 #13. Project structure commit
@@ -141,4 +142,18 @@
 #22.a. Remove unused branches
     git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
 
+#23. Create a git branch for ui project
+    git branch ui_project
+    git checkout ui_project
 
+#23. Work on ui project
+    ng generate @angular/material:navigation main-nav
+    ng generate @angular/material:table products
+    ng generate component confirmation-dialog
+    ng generate service product
+    ng generate interface iproduct
+    ng generate service dialog
+    ng generate service notification
+
+    ng serve
+    

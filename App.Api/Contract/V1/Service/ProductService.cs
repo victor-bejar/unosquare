@@ -33,7 +33,7 @@ namespace App.Api.Contract.V1.Service
             return product;
         }
 
-        public IEnumerable<Product> GetList(string filter, int? pageIndex, int? pageSize)
+        public IItemsList<Product> GetList(string filter, int? pageIndex, int? pageSize)
         {
 
             int defaultPageIndex = 0;
@@ -42,17 +42,17 @@ namespace App.Api.Contract.V1.Service
             int currentPageIndex = pageIndex != null ? (int)pageIndex : defaultPageIndex;
             int currentPageSize = pageSize != null ? (int)pageSize : defaultPageSize;
 
-            IEnumerable<Product> models =
+            IItemsList<Product> productsList =
                 this._persistence.Products.GetProducts(filter, currentPageIndex, currentPageSize);
 
-            return models;
+            return productsList;
 
         }
 
         public Product Update(ProductUpdateRequest modelUpdateRequest, int id)
         {
             Product model = this._persistence.Products.Get(id);
-            model = Map.ProductMapper.UpdateRequestToModel(modelUpdateRequest, id);
+            model = Map.ProductMapper.UpdateRequestToModel(modelUpdateRequest, model);
             this._persistence.Complete();
             return model;
         }
@@ -61,6 +61,7 @@ namespace App.Api.Contract.V1.Service
         {
             Product productModel = this._persistence.Products.Get(productId);
             this._persistence.Products.Remove(productModel);
+            this._persistence.Complete();
             return productModel;
         }
 

@@ -130,14 +130,16 @@ namespace App.Api.Test.Contract.V1.Service
         }
 
         [Fact]
-        public void UpdateCallsPersistenceAsync()
+        public void UpdateCallsPersistence()
         {
 
             int id = 1;
 
+            Product product = new Product() { ProductId = id };
             ProductUpdateRequest productRequest = this.GetProductUpdateRequest();
             ProductService productService = new ProductService(this._mockUoW.Object);
 
+            this._mockUoW.Setup(x => x.Products.Get(id)).Returns(product);
             this._mockUoW.Setup(x => x.Products.Add(It.IsAny<Product>()));
 
             productService.Update(productRequest, id);
@@ -147,7 +149,7 @@ namespace App.Api.Test.Contract.V1.Service
         }
 
         [Fact]
-        public void DeleteCallsPersistenceAsync()
+        public void DeleteCallsPersistence()
         {
 
             int productId = 1;

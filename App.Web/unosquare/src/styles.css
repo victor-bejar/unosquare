@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.hide {
+    display: none;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.full-width-table {
+    width: 100%;
+}
+
+.view-container {
+    margin: 1em;
+}
+
+.entity-card {
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+mat-card-content {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.mat-form-container-checkbox {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.header-button-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-card-header-spacer {
+    flex: 1 1 auto;
+}
+
+div.view-container>table {
+    margin-top: 1em;
+}
+
+.spinner-container {
+    width: 0%;
+    margin: 0 auto;
+}

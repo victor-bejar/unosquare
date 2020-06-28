@@ -1,0 +1,13 @@
+<div>
+    <div class="confirmation-header">
+        <span class="content-span full-width">{{ _dialogData.message }}</span>
+    </div>
+    <div class="confirmation-actions">
+        <button mat-icon-button color="warn" id="no-button" [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" id="yes-button" [mat-dialog-close]="true">
+            <mat-icon>check</mat-icon>
+        </button>
+    </div>
+</div>

@@ -94,7 +94,9 @@ namespace App.Api.Test.Contract.V1.Map
             int id = 1;
 
             ProductUpdateRequest productRequest = this.GetProductUpdateRequest();
-            IProduct productModel = ProductMapper.UpdateRequestToModel(productRequest, id);
+            Product productModel = new Product() { ProductId = id };
+            
+            productModel = ProductMapper.UpdateRequestToModel(productRequest, productModel);
 
             Assert.Equal(id, productModel.ProductId);
             Assert.Equal(productRequest.Name, productModel.Name);
