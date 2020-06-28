@@ -55,12 +55,17 @@
 #09. Create a web api project
     pushd App.Api
     dotnet new webapi
+    dotnet add reference ../App.Persistence
+    dotnet add package Microsoft.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.InMemory
+    dotnet add package Swashbuckle.AspNetCore
     popd
 
-#10. Create a persistence test project
+#10. Create a web api test project
     pushd App.Api.Test
     dotnet new xunit
     dotnet add reference ../App.Api
+    dotnet add package Moq
     popd
 
 #11. Create a solution file
@@ -119,3 +124,21 @@
 
 #19.a. Remove unused branches
     git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
+
+#20. Create a git branch for api project
+    git branch api_project
+    git checkout api_project
+
+#21. Work on api (and test) project
+    dotnet clean && dotnet restore && dotnet build && dotnet test
+
+#22. Commit api (and test) project
+    git add .
+    git commit
+    git checkout master
+    git rebase api_project
+
+#22.a. Remove unused branches
+    git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
+
+

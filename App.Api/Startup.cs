@@ -1,20 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+
+using App.Api.Installer;
+
+using App.Api.MiddlewareSettings;
 
 namespace App.Api
 {
+
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,18 +24,26 @@ namespace App.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.InstallServicesInAssembly(this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
+                app.UseCors("DevelopmentCorsPolicy");
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // Swagger setup
+            SwaggerSettings swaggerSettings = new SwaggerSettings();
+            this.Configuration.GetSection(nameof(SwaggerSettings)).Bind(swaggerSettings);
+            app.UseSwagger(settings => settings.RouteTemplate = swaggerSettings.JsonRoute);
+            app.UseSwaggerUI(settings => settings.SwaggerEndpoint(swaggerSettings.UIEndpoint, swaggerSettings.Description));
+
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -46,6 +53,9 @@ namespace App.Api
             {
                 endpoints.MapControllers();
             });
+
         }
     }
+
+
 }
