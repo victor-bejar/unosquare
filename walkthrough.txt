@@ -152,8 +152,17 @@
     ng generate component confirmation-dialog
     ng generate service product
     ng generate interface iproduct
+    ng generate interface iproductS
     ng generate service dialog
     ng generate service notification
 
     ng serve
     
+#24. Commit UI project
+    git add .
+    git commit
+    git checkout master
+    git rebase ui_project
+
+#22.a. Remove unused branches
+    git branch --merged | egrep -v "(^\*|master)" | xargs git branch -d
