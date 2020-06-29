@@ -48,12 +48,24 @@ export class ProductComponent implements OnInit {
   private createFormGroup(): void {
 
     this.form = this._formBuilder.group({
-      productId: new FormControl({ value: null, disabled: !this.isCreationMode() }, (!this.isCreationMode() ? [Validators.required] : null)),
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
-      ageRestriction: new FormControl('', [Validators.required]),
-      company: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
+      productId: new FormControl(
+        {value: null, disabled: !this.isCreationMode() },
+        (!this.isCreationMode() ? [Validators.required] : null)),
+      name: new FormControl(
+        '',
+        [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      description: new FormControl(
+        '',
+        [Validators.maxLength(100)]),
+      ageRestriction: new FormControl(
+        null,
+        [Validators.min(0), Validators.max(100)]),
+      company: new FormControl(
+        '',
+        [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      price: new FormControl(
+        '',
+        [Validators.required, Validators.min(1), Validators.max(1000)]),
     });
 
   }
@@ -109,6 +121,10 @@ export class ProductComponent implements OnInit {
         this.notificationService.success('Record ' + (this.isCreationMode() ? 'Created' : 'Updated'));
       });
 
+  }
+
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.form.controls[controlName].hasError(errorName);
   }
 
 }
